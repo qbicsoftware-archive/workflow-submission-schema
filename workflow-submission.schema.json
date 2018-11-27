@@ -3,5 +3,43 @@
   "$id": "https://raw.githubusercontent.com/qbicsoftware/workflow-submission-schema/master/workflow-submission.schema.json",
   "title": "Workflow Submission Request Schema",
   "description": "Defines the necessary fields a workflow submission request JSON needs to provide.",
-  "type": "object"
+  "type": "object",
+  "properties": {
+    "user": {
+      "description": "The user that requested the workflow submission",
+      "type": "string"
+    },
+    "data": {
+      "description": "A list of input files",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "workflow": {
+      "description": "Github repo slug for a nf-core pipeline",
+      "type": "string"
+    },
+    "params": {
+      "description": "A Nextflow params object",
+      "type": "object"
+    },
+    "projectId": {
+      "description": "A project identifier",
+      "type": "string"
+    },
+    "resource": {
+      "description": "A HPC resource identifier",
+      "type": "string",
+      "enum": ["cfc", "binac"]
+    },
+    "submissionToken": {
+      "description": "A registered token that enables workflow submission for the requested HPC resource ",
+      "type": "string",
+      "pattern": "[A-Z0-9]{40}"
+    }
+  },
+  "required": [ "data", "workflow", "params", "resource", "submissionToken" ]
 }
